@@ -1,0 +1,32 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: bash -c "if [ -f tmp/pids/server.pid ]; then rm tmp/pids/server.pid; fi && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    environment:
+      DB_HOST_NAME: mysql
+    volumes:
+      - .:/myapp
+    ports:
+      - "3000:3000"
+    links:
+      - mysql
+  mysql:
+    build: ./mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - 3307:3306
+    volumes:
+      # 初期データを投入するSQLが格納されているdir
+      - ./mysql/init:/docker-entrypoint-initdb.d
+      # 永続化するときにマウントするdir
+      - ./mysql/data:/var/lib/mysql
+      # mysqlのconfigファイルの設定
+      - ./mysql/conf.d:/etc/mysql/conf.d
+      # logファイル
+      - ./mysql/log:/var/log/mysql
+    restart: on-failure
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}

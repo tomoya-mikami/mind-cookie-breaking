@@ -5,12 +5,18 @@ services:
     command: bash -c "if [ -f tmp/pids/server.pid ]; then rm tmp/pids/server.pid; fi && bundle exec rails s -p 3000 -b '0.0.0.0'"
     environment:
       DB_HOST_NAME: mysql
+      RAILS_ENV: ${RAILS_ENV}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      REDIS_URL: ${REDIS_URL}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
     volumes:
       - .:/myapp
     ports:
       - "3000:3000"
     links:
       - mysql
+      - redis
   mysql:
     build: ./mysql
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
@@ -30,3 +36,11 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    volumes:
+       - ./redis:/data
+    tty: true

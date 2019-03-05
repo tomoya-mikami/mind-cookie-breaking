@@ -29,6 +29,10 @@ gem 'config'
 gem 'listen', '>= 3.0.5', '< 3.2'
 gem 'redis'
 
+# Use Activeadmin
+gem 'activeadmin'
+gem 'inherited_resources'
+
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'pry-byebug', '~> 3.6'

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  token: MyString
+  estimate_url: MyString
+  auth_name: MyString
+  auth_password: MyString
+  vertical: 1
+  horizontal: 1
+
+two:
+  name: MyString
+  token: MyString
+  estimate_url: MyString
+  auth_name: MyString
+  auth_password: MyString
+  vertical: 1
+  horizontal: 1

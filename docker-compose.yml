@@ -16,7 +16,7 @@ services:
     volumes:
       - .:/myapp
     ports:
-      - "3000:3000"
+      - "${RAILS_PORT}:3000"
     links:
       - mysql
       - redis

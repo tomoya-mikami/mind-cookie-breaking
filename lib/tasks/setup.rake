@@ -92,13 +92,13 @@ namespace :setup do
         source = project.sources.build(name: name, uuid: SecureRandom.uuid)
         image_path = Settings.url + '/img/' + project.name + '/dest/' + source.name + '_1_1_1.png'
         tuple = "source_id:#{source.uuid},image_url:#{image_path},status_id:-1"
-        res = client.post(project.estimate_url, 
-          {
-            :project_name => project.name,
-            :relation_name => "Image",
-            :tuple => tuple
-          }
-        )
+        #res = client.post(project.estimate_url, 
+        #  {
+        #    :project_name => project.name,
+        #    :relation_name => "Image",
+        #    :tuple => tuple
+        #  }
+        #)
         sources << source
       end
 

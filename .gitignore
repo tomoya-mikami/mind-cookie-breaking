@@ -33,6 +33,7 @@
 /mysql/data/*
 /mysql/init/*
 /mysql/log/*
+/public/img/*
 
 /redis/*
 

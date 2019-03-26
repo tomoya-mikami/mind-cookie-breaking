@@ -2,7 +2,7 @@ version: '3'
 services:
   web:
     build: .
-    command: bash -c "if [ -f tmp/pids/server.pid ]; then rm tmp/pids/server.pid; fi && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "if [ -f tmp/pids/server.pid ]; then rm tmp/pids/server.pid; fi && bundle exec sidekiq -C config/sidekiq.yml && bundle exec rails s -p 3000 -b '0.0.0.0'"
     environment:
       DB_HOST_NAME: mysql
       DB_USERNAME: ${MYSQL_USER}
@@ -45,7 +45,7 @@ services:
     image: redis:latest
     ports:
       - 6379:6379
-    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    command: redis-server --appendonly yes
     volumes:
        - ./redis:/data
     tty: true

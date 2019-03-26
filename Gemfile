@@ -28,6 +28,8 @@ gem 'httpclient'
 gem 'config'
 gem 'listen', '>= 3.0.5', '< 3.2'
 gem 'redis'
+gem 'redis-namespace'
+gem 'sidekiq'
 
 # Use Activeadmin
 gem 'activeadmin'
